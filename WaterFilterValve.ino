@@ -6,6 +6,7 @@
 #define PIN_ONBOARD_LED     13
 #define PIN_VALVE_CONTROL   12
 #define PIN_BUTTON_INPUT    2
+#define PIN_SPEAKER_OUT     8
 
 #ifdef DEBUG
 #define VALVE_TIME  200
@@ -20,10 +21,8 @@ Button button( PIN_BUTTON_INPUT );
 int valve_timer = -1;
 
 void open_valve() {
-  if ( valve_timer != -1 ) {
-    scheduler.stop( valve_timer );
-    valve_timer = -1;
-  }
+  tone( PIN_SPEAKER_OUT, 440, 200 );
+  scheduler.stop( valve_timer );
   valve_timer = scheduler.pulseImmediate( PIN_VALVE_CONTROL, VALVE_TIME, HIGH);
 }
 
